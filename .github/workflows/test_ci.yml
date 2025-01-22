@@ -21,6 +21,6 @@ jobs:
             distribution: 'temurin'
             java-version: '21'
         - name: Test with Gradle
-          run: ./gradlew clean test
+          run: ./potatocountry/gradlew clean test
         - name: Build with Gradle
-          run: ./gradlew clean build -x test
+          run: ./potatocountry/gradlew clean build -x test
