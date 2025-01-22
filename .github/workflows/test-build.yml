@@ -1,5 +1,5 @@
-name: ✅ Test CI
-run-name: ${{ github.actor }} is Test CI 🚀
+name: ✅ Build Test
+run-name: ${{ github.actor }} is Build Test  🚀
 on:
   push:
     branches:
@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 jobs:
-  ci:
+  build-test:
     runs-on: ubuntu-latest
     steps:
         - uses: actions/checkout@v4

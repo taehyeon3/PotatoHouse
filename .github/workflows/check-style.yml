@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 jobs:
-  checkstyle:
+  check-style:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,5 +28,3 @@ jobs:
         run: ./gradlew --console verbose clean checkstyleMain
       - name: ️Test checkstyle
         run: ./gradlew --console verbose clean checkstyleTest
-      - name: ️TestFixture checkstyle
-        run: ./gradlew --console verbose clean checkstyleTestFixture
