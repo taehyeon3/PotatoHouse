@@ -1,4 +1,4 @@
-name: Test CI
+name: ✅ Test CI
 run-name: ${{ github.actor }} is Test CI 🚀
 on:
   push:
@@ -7,6 +7,10 @@ on:
   pull_request:
     branches:
       - main
+
+defaults:
+  run:
+    working-directory: ./potatocountry
 
 permissions:
   contents: read
@@ -21,10 +25,6 @@ jobs:
             distribution: 'temurin'
             java-version: '21'
         - name: Test with Gradle
-          run: |
-            cd ./potatocountry
-            ./gradlew clean test
+          run: ./gradlew clean test
         - name: Build with Gradle
-          run: |
-            cd ./potatocountry
-            ./gradlew clean build -x test
+          run: ./gradlew clean build -x test
