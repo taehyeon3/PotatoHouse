@@ -8,7 +8,5 @@ public class PotatocountryApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PotatocountryApplication.class, args);
-		System.out.println("args = " + args);System.out.println("args = " + args);
 	}
-
 }
