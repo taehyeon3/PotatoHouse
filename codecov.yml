@@ -1,11 +1,13 @@
 coverage:
   status:
     project:
+      default: false
       tests:
         target: 100%
         paths:
           - "potatocountry/**/*"
         threshold: 0%      # 허용되는 감소 범위
+        if_not_found: failure   # 커버리지 파일이 없을 경우 실패
         if_ci_failed: error     # CI 실패시 에러 표시
         informational: false    # false로 설정하여 실제 상태 체크 활성화
     patch:
