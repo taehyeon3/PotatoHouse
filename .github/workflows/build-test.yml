@@ -1,0 +1,30 @@
+name: ✅ Build Test
+run-name: ${{ github.actor }} is Build Test  🚀
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+defaults:
+  run:
+    working-directory: ./potatocountry
+
+permissions:
+  contents: read
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v4
+        - uses: actions/setup-java@v4
+          with:
+            distribution: 'temurin'
+            java-version: '21'
+        - name: Test with Gradle
+          run: ./gradlew clean test
+        - name: Build with Gradle
+          run: ./gradlew clean build -x test

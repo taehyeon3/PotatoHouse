@@ -1,0 +1,8 @@
+coverage:
+  status:
+    project:
+      default: false
+      tests:
+        target: 100%
+        paths:
+          - "potatocountry/src/main/*"
