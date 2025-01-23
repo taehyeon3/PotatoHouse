@@ -4,4 +4,4 @@ coverage:
       default: false
       tests:
         target: 100%
-        paths: "potatocountry/src/test"
+        paths: "potatocountry/src/main"
