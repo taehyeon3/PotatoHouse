@@ -22,18 +22,30 @@ public class User extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String loginId;
 
 	@Column(nullable = false)
-	private String passwd;
+	private String password;
 
 	@Column(nullable = false)
 	private String username;
+
+	@Column(nullable = false, unique = true)
+	private String nickname;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, columnDefinition = "VARCHAR(20)")
 	private UserRole role;
 
 	private boolean status;
+
+	public User(String loginId, String password, String username, String nickname) {
+		this.loginId = loginId;
+		this.password = password;
+		this.username = username;
+		this.nickname = nickname;
+		this.role = UserRole.USER;
+		this.status = true;
+	}
 }
