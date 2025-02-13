@@ -9,9 +9,10 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum CustomError {
 	//유저 에러
-	USER_DUPLICATION_ID(HttpStatus.FORBIDDEN, "중복된 아이디 입니다."),
-	USER_DUPLICATION_NICKNAME(HttpStatus.FORBIDDEN, "중복된 닉네임 입니다.");
+	USER_DUPLICATION_ID(HttpStatus.FORBIDDEN, "UR100", "중복된 아이디 입니다."),
+	USER_DUPLICATION_NICKNAME(HttpStatus.FORBIDDEN, "UR101", "중복된 닉네임 입니다.");
 
 	private final HttpStatus status;
+	private final String code;
 	private final String message;
 }
