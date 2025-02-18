@@ -31,7 +31,7 @@ public class JoinResDto {
 	public static JoinResDto toDto(User user) {
 		return builder()
 			.id(user.getId())
-			.loginId(user.getLoginId())
+			.loginId(user.getAuthUser().getUsername())
 			.nickname(user.getNickname())
 			.build();
 	}

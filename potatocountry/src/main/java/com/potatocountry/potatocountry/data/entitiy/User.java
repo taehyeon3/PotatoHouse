@@ -1,15 +1,14 @@
 package com.potatocountry.potatocountry.data.entitiy;
 
-import com.potatocountry.potatocountry.data.entitiy.type.UserRole;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,30 +21,20 @@ public class User extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false, unique = true)
-	private String loginId;
-
-	@Column(nullable = false)
-	private String password;
-
 	@Column(nullable = false)
 	private String username;
 
 	@Column(nullable = false, unique = true)
 	private String nickname;
 
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = false, columnDefinition = "VARCHAR(20)")
-	private UserRole role;
+	@OneToOne
+	@JoinColumn(name = "auth_user_id")
+	private AuthUser authUser;
 
-	private boolean status;
-
-	public User(String loginId, String password, String username, String nickname) {
-		this.loginId = loginId;
-		this.password = password;
+	@Builder
+	private User(String username, String nickname, AuthUser authUser) {
 		this.username = username;
 		this.nickname = nickname;
-		this.role = UserRole.USER;
-		this.status = true;
+		this.authUser = authUser;
 	}
 }

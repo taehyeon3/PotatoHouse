@@ -149,7 +149,7 @@ public enum PostCategory {
 		return this.isLeafCategory() && category.contains(this);
 	}
 
-	private boolean contains(PostCategory category) {
+	public boolean contains(PostCategory category) {
 		if (this.equals(category)) {
 			return true;
 		}

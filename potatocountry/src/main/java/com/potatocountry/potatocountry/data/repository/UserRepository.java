@@ -7,8 +7,5 @@ import com.potatocountry.potatocountry.data.entitiy.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-
-	boolean existsByLoginId(String loginId);
-
 	boolean existsByNickname(String nickName);
 }

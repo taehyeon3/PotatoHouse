@@ -4,7 +4,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.potatocountry.potatocountry.data.entitiy.AuthUser;
 import com.potatocountry.potatocountry.data.entitiy.User;
+import com.potatocountry.potatocountry.data.entitiy.type.UserRole;
+import com.potatocountry.potatocountry.data.repository.AuthUserRepository;
 import com.potatocountry.potatocountry.data.repository.UserRepository;
 import com.potatocountry.potatocountry.domain.auth.dto.request.JoinReqDto;
 import com.potatocountry.potatocountry.domain.auth.dto.response.JoinResDto;
@@ -17,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class AuthService {
+	private final AuthUserRepository authUserRepository;
 	private final UserRepository userRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -25,9 +29,10 @@ public class AuthService {
 		validateDuplicationId(joinReqDto.getLoginId());
 		validateDuplicationNickname(joinReqDto.getNickname());
 
-		User user = new User(joinReqDto.getLoginId(),
-			bCryptPasswordEncoder.encode(joinReqDto.getPassword()), joinReqDto.getUsername(),
-			joinReqDto.getNickname());
+		AuthUser authUser = new AuthUser(joinReqDto.getLoginId(),
+			bCryptPasswordEncoder.encode(joinReqDto.getPassword()), UserRole.USER);
+		User user = authUser.createUser(joinReqDto.getUsername(), joinReqDto.getNickname());
+		authUserRepository.save(authUser);
 		userRepository.save(user);
 		return JoinResDto.toDto(user);
 	}
@@ -39,7 +44,7 @@ public class AuthService {
 	}
 
 	public void validateDuplicationId(String loginId) {
-		if (userRepository.existsByLoginId(loginId)) {
+		if (authUserRepository.existsByUsername(loginId)) {
 			throw new CustomException(CustomError.USER_DUPLICATION_ID);
 		}
 	}
