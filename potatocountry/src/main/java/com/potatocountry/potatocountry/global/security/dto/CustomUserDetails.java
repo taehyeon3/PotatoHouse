@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.potatocountry.potatocountry.data.entitiy.AuthUser;
+import com.potatocountry.potatocountry.data.entitiy.User;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,6 +29,10 @@ public class CustomUserDetails implements UserDetails {
 	@Override
 	public String getPassword() {
 		return authUser.getPassword();
+	}
+
+	public Long getId() {
+		return authUser.getId();
 	}
 
 	@Override

@@ -13,7 +13,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -39,6 +41,10 @@ public class Post extends BaseEntity {
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "imageCollection_id")
+	private ImageCollection imageCollection;
+
 	@Column(nullable = false)
 	private Long viewCount;
 
@@ -48,4 +54,16 @@ public class Post extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, columnDefinition = "VARCHAR(20)")
 	private PostStatus status;
+
+	@Builder
+	public Post(PostCategory category, String title, String content, User user, ImageCollection imageCollection) {
+		this.category = category;
+		this.title = title;
+		this.content = content;
+		this.user = user;
+		this.viewCount = 0L;
+		this.likeCount = 0L;
+		this.imageCollection = imageCollection;
+		this.status = PostStatus.SELLING;
+	}
 }
