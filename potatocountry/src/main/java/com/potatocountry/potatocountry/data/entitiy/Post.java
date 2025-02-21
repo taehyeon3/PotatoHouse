@@ -2,6 +2,7 @@ package com.potatocountry.potatocountry.data.entitiy;
 
 import com.potatocountry.potatocountry.data.entitiy.type.PostCategory;
 import com.potatocountry.potatocountry.data.entitiy.type.PostStatus;
+import com.potatocountry.potatocountry.domain.post.dto.request.PostReqDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -65,5 +66,18 @@ public class Post extends BaseEntity {
 		this.likeCount = 0L;
 		this.imageCollection = imageCollection;
 		this.status = PostStatus.SELLING;
+	}
+
+
+	public void updatePost(PostReqDto postReqDto) {
+		if (postReqDto.getCategory() != null) {
+			this.category = postReqDto.getCategory();
+		}
+		if (postReqDto.getTitle() != null) {
+			this.title = postReqDto.getTitle();
+		}
+		if (postReqDto.getContent() != null) {
+			this.content = postReqDto.getContent();
+		}
 	}
 }

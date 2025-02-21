@@ -15,6 +15,8 @@ import com.potatocountry.potatocountry.data.repository.PostRepository;
 import com.potatocountry.potatocountry.data.repository.UserRepository;
 import com.potatocountry.potatocountry.domain.post.dto.request.PostReqDto;
 import com.potatocountry.potatocountry.domain.post.dto.response.PostResDto;
+import com.potatocountry.potatocountry.global.error.CustomError;
+import com.potatocountry.potatocountry.global.error.CustomException;
 import com.potatocountry.potatocountry.global.security.dto.CustomUserDetails;
 
 import lombok.RequiredArgsConstructor;
@@ -43,5 +45,22 @@ public class PostService {
 		Post post = postReqDto.toEntity(user, postReqDto, imageCollection);
 		postRepository.save(post);
 		return PostResDto.toDto(post);
+	}
+
+	@Transactional
+	public PostResDto postUpdate(CustomUserDetails customUserDetails, PostReqDto postReqDto, Long id) {
+		User user = userRepository.getByAuthUserId(customUserDetails.getId());
+		Post post = postRepository.findById(id).orElseThrow(() -> new CustomException(CustomError.POST_NOT_FOUND));
+
+		validAuthor(user, post);
+		post.updatePost(postReqDto);
+		return PostResDto.toDto(post);
+	}
+
+	public void validAuthor(User user, Post post) {
+		User checkUser = post.getUser();
+		if (checkUser == null || !checkUser.equals(user)) {
+			throw new CustomException(CustomError.USER_NOT_MATCH);
+		}
 	}
 }
