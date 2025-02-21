@@ -57,6 +57,15 @@ public class PostService {
 		return PostResDto.toDto(post);
 	}
 
+	@Transactional
+	public void postDelete(CustomUserDetails customUserDetails, Long id) {
+		User user = userRepository.getByAuthUserId(customUserDetails.getId());
+		Post post = postRepository.findById(id).orElseThrow(() -> new CustomException(CustomError.POST_NOT_FOUND));
+
+		validAuthor(user, post);
+		post.deletePost();
+	}
+
 	public void validAuthor(User user, Post post) {
 		User checkUser = post.getUser();
 		if (checkUser == null || !checkUser.equals(user)) {

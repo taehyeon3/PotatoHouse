@@ -80,4 +80,8 @@ public class Post extends BaseEntity {
 			this.content = postReqDto.getContent();
 		}
 	}
+
+	public void deletePost() {
+		this.status = PostStatus.DELETED;
+	}
 }
