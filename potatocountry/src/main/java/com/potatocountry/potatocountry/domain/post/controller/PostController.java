@@ -30,8 +30,13 @@ import lombok.RequiredArgsConstructor;
 public class PostController {
 	private final PostService postService;
 
+
 	@PostMapping
-	@Operation(security = {@SecurityRequirement(name = "bearerAuth")})
+	@Operation(
+		summary = "게시판 생성 API",
+		description = "새로운 게시판을 생성합니다.",
+		security = {@SecurityRequirement(name = "bearerAuth")}
+	)
 	public ResponseEntity<PostResDto> createPost(@AuthenticationPrincipal CustomUserDetails customUserDetails,
 		@RequestBody @Valid PostReqDto postReqDto) {
 		PostResDto postResDto = postService.postCreate(customUserDetails, postReqDto);
@@ -39,7 +44,11 @@ public class PostController {
 	}
 
 	@PutMapping("/{id}")
-	@Operation(security = {@SecurityRequirement(name = "bearerAuth")})
+	@Operation(
+		summary = "게시판 수정 API",
+		description = "게시판을 수정합니다.",
+		security = {@SecurityRequirement(name = "bearerAuth")}
+	)
 	public ResponseEntity<PostResDto> updatePost(@AuthenticationPrincipal CustomUserDetails customUserDetails,
 		@RequestBody @Valid PostReqDto postReqDto, @PathVariable @Valid Long id) {
 		PostResDto postResDto = postService.postUpdate(customUserDetails, postReqDto, id);
@@ -47,7 +56,11 @@ public class PostController {
 	}
 
 	@PatchMapping("/{id}")
-	@Operation(security = {@SecurityRequirement(name = "bearerAuth")})
+	@Operation(
+		summary = "게시판 삭제 API",
+		description = "게시판을 삭제합니다.",
+		security = {@SecurityRequirement(name = "bearerAuth")}
+	)
 	public ResponseEntity<PostResDto> deletePost(@AuthenticationPrincipal CustomUserDetails customUserDetails,
 		@PathVariable @Valid Long id) {
 		postService.postDelete(customUserDetails, id);
@@ -55,7 +68,11 @@ public class PostController {
 	}
 
 	@GetMapping("/{id}")
-	@Operation(security = {@SecurityRequirement(name = "bearerAuth")})
+	@Operation(
+		summary = "게시판 상세 내용 API",
+		description = "게시판의 내용을 가져옵니다.",
+		security = {@SecurityRequirement(name = "bearerAuth")}
+	)
 	public ResponseEntity<PostResDto> getPost(@PathVariable @Valid Long id) {
 		PostResDto postResDto = postService.postGet(id);
 		return ResponseEntity.status(HttpStatus.OK).body(postResDto);

@@ -43,4 +43,9 @@ public class Image extends BaseEntity {
 	public void mappingImageCollection(ImageCollection imageCollection) {
 		this.imageCollection = imageCollection;
 	}
+
+	public void updateImage(byte[] imageData, String imageName) {
+		this.imageData = imageData;
+		this.imageName = imageName;
+	}
 }
