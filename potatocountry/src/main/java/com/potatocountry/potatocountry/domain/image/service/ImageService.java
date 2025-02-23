@@ -33,4 +33,10 @@ public class ImageService {
 		image.updateImage(file.getBytes(), file.getOriginalFilename());
 		return imageRepository.save(image);
 	}
+
+	@Transactional
+	public void imageDelete(Long id) {
+		Image image = imageRepository.findById(id).orElseThrow(() -> new CustomException(CustomError.IMAGE_NOT_FOUND));
+		imageRepository.delete(image);
+	}
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -44,6 +45,14 @@ public class ImageController {
 	public ResponseEntity<ImageResDto> updateImage(@RequestParam("file") MultipartFile file,
 		@PathVariable @Valid Long id) throws IOException {
 		Image image = imageService.imageUpdate(file, id);
-		return ResponseEntity.status(HttpStatus.CREATED).body(ImageResDto.toDto(image));
+		return ResponseEntity.status(HttpStatus.OK).body(ImageResDto.toDto(image));
+	}
+
+	@Operation(summary = "이미지 삭제 API", description = "이미지를 삭제합니다.", security = {
+		@SecurityRequirement(name = "bearerAuth")})
+	@PatchMapping("/{id}")
+	public ResponseEntity<Void> deleteImage(@PathVariable @Valid Long id) {
+		imageService.imageDelete(id);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 }
