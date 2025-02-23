@@ -66,6 +66,11 @@ public class PostService {
 		post.deletePost();
 	}
 
+	public PostResDto postGet(Long id) {
+		Post post = postRepository.findById(id).orElseThrow(() -> new CustomException(CustomError.POST_NOT_FOUND));
+		return PostResDto.toDto(post);
+	}
+
 	public void validAuthor(User user, Post post) {
 		User checkUser = post.getUser();
 		if (checkUser == null || !checkUser.equals(user)) {
