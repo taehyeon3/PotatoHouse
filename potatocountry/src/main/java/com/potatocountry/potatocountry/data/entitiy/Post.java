@@ -43,7 +43,7 @@ public class Post extends BaseEntity {
 	private User user;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "imageCollection_id")
+	@JoinColumn(name = "image_collection_id")
 	private ImageCollection imageCollection;
 
 	@Column(nullable = false)
@@ -67,7 +67,6 @@ public class Post extends BaseEntity {
 		this.imageCollection = imageCollection;
 		this.status = PostStatus.SELLING;
 	}
-
 
 	public void updatePost(PostReqDto postReqDto) {
 		if (postReqDto.getCategory() != null) {

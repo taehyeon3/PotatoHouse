@@ -21,6 +21,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Tag(name = "회원", description = "회원 관련 API")
@@ -43,7 +44,7 @@ public class AuthController {
 			content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResDto.class))),
 	})
 	@PostMapping("/join")
-	public ResponseEntity<JoinResDto> join(@RequestBody JoinReqDto joinReqDto) {
+	public ResponseEntity<JoinResDto> join(@RequestBody @Valid JoinReqDto joinReqDto) {
 		JoinResDto joinResDto = userService.joinProcess(joinReqDto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(joinResDto);
 	}

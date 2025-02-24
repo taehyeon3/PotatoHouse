@@ -20,7 +20,11 @@ public enum CustomError {
 	IMAGE_NOT_FOUND(HttpStatus.NOT_FOUND, "IM100", "존재하지 않는 이미지 입니다."),
 
 	//게시판 에러
-	POST_NOT_FOUND(HttpStatus.NOT_FOUND, "PT100", "존재하지 않는 게시글 입니다.");
+	POST_NOT_FOUND(HttpStatus.NOT_FOUND, "PT100", "존재하지 않는 게시글 입니다."),
+
+	//댓글 에러
+	COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "CM100", "존재하지 않는 댓글 입니다.");
+
 	private final HttpStatus status;
 	private final String code;
 	private final String message;

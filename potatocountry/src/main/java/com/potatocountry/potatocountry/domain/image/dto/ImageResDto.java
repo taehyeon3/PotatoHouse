@@ -13,10 +13,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ImageResDto {
 
+	@Schema(description = "이미지 고유 아이디", example = "1")
 	private Long id;
 
+	@Schema(description = "이미지 이름", example = "example.jpg")
 	private String imageName;
-
 
 	@Builder
 	public ImageResDto(Long id, String imageName) {

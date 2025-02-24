@@ -21,9 +21,8 @@ public class Image extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "imageCollection_id")
+	@JoinColumn(name = "image_collection_id")
 	private ImageCollection imageCollection;
 
 	@Lob
