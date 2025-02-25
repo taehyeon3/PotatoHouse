@@ -47,4 +47,8 @@ public class AuthUser extends BaseEntity {
 			.authUser(this)
 			.build();
 	}
+
+	public void deactivate() {
+		this.status = false;
+	}
 }
