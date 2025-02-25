@@ -25,8 +25,7 @@ public class UserInfoResDto {
 
 
 	@Builder
-	private UserInfoResDto(Long id, String username, String nickname)
-	{
+	private UserInfoResDto(Long id, String username, String nickname) {
 		this.id = id;
 		this.username = username;
 		this.nickname = nickname;

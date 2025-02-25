@@ -28,8 +28,8 @@ public class UserController {
 
 	@Operation(security = {@SecurityRequirement(name = "bearerAuth")})
 	@GetMapping("/{id}")
-	public ResponseEntity<UserInfoResDto> userGet(@PathVariable Long id, @AuthenticationPrincipal CustomUserDetails customUserDetails)
-	{
+	public ResponseEntity<UserInfoResDto> userGet(@PathVariable Long id,
+		@AuthenticationPrincipal CustomUserDetails customUserDetails) {
 		UserInfoResDto response = userService.getUserInfo(id, customUserDetails.getId());
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
