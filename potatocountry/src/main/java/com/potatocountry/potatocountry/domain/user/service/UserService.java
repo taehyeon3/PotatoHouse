@@ -23,8 +23,9 @@ public class UserService {
 
 	public UserInfoResDto getUserInfo(Long userId, Long authUserId) {
 
-		if (userId.equals(authUserId))
+		if (userId.equals(authUserId)) {
 			throw new CustomException(CustomError.USER_NOT_MATCH);
+		}
 		User user = userRepository.getByAuthUserId(authUserId);
 		return UserInfoResDto.toDto(user);
 	}
