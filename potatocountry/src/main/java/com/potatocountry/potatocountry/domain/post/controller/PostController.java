@@ -3,8 +3,8 @@ package com.potatocountry.potatocountry.domain.post.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.potatocountry.potatocountry.domain.post.dto.request.PostReqDto;
-import com.potatocountry.potatocountry.domain.post.dto.response.PostResDto;
+import com.potatocountry.potatocountry.domain.post.dto.request.PostCreateReqDto;
+import com.potatocountry.potatocountry.domain.post.dto.request.PostUpdateReqDto;
+import com.potatocountry.potatocountry.domain.post.dto.response.PostCreateResDto;
+import com.potatocountry.potatocountry.domain.post.dto.response.PostInfoResDto;
+import com.potatocountry.potatocountry.domain.post.dto.response.PostUpdateResDto;
 import com.potatocountry.potatocountry.domain.post.service.PostService;
 import com.potatocountry.potatocountry.global.error.dto.ErrorResDto;
 import com.potatocountry.potatocountry.global.security.dto.CustomUserDetails;
@@ -42,13 +45,16 @@ public class PostController {
 	)
 	@ApiResponses({
 		@ApiResponse(responseCode = "201", description = "201 성공",
-			content = @Content(mediaType = "application/json", schema = @Schema(implementation = PostResDto.class))),
+			content = @Content(
+				mediaType = "application/json",
+				schema = @Schema(implementation = PostCreateResDto.class)
+			)),
 	})
 	@PostMapping
-	public ResponseEntity<PostResDto> createPost(@AuthenticationPrincipal CustomUserDetails customUserDetails,
-		@RequestBody @Valid PostReqDto postReqDto) {
-		PostResDto postResDto = postService.postCreate(customUserDetails, postReqDto);
-		return ResponseEntity.status(HttpStatus.CREATED).body(postResDto);
+	public ResponseEntity<PostCreateResDto> createPost(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+		@RequestBody @Valid PostCreateReqDto postCreateReqDto) {
+		PostCreateResDto postCreateResDto = postService.postCreate(customUserDetails, postCreateReqDto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(postCreateResDto);
 	}
 
 	@Operation(
@@ -58,15 +64,18 @@ public class PostController {
 	)
 	@ApiResponses({
 		@ApiResponse(responseCode = "200", description = "200 성공",
-			content = @Content(mediaType = "application/json", schema = @Schema(implementation = PostResDto.class))),
+			content = @Content(
+				mediaType = "application/json",
+				schema = @Schema(implementation = PostUpdateResDto.class)
+			)),
 		@ApiResponse(responseCode = "PT100", description = "404 존재하지 않은 게시판 입니다.",
 			content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResDto.class))),
 	})
 	@PutMapping("/{id}")
-	public ResponseEntity<PostResDto> updatePost(@AuthenticationPrincipal CustomUserDetails customUserDetails,
-		@RequestBody @Valid PostReqDto postReqDto, @PathVariable @Valid Long id) {
-		PostResDto postResDto = postService.postUpdate(customUserDetails, postReqDto, id);
-		return ResponseEntity.status(HttpStatus.OK).body(postResDto);
+	public ResponseEntity<PostUpdateResDto> updatePost(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+		@RequestBody @Valid PostUpdateReqDto postUpdateReqDto, @PathVariable @Valid Long id) {
+		PostUpdateResDto postUpdateResDto = postService.postUpdate(customUserDetails, postUpdateReqDto, id);
+		return ResponseEntity.status(HttpStatus.OK).body(postUpdateResDto);
 	}
 
 	@Operation(
@@ -75,13 +84,12 @@ public class PostController {
 		security = {@SecurityRequirement(name = "bearerAuth")}
 	)
 	@ApiResponses({
-		@ApiResponse(responseCode = "204", description = "204 성공",
-			content = @Content(mediaType = "application/json", schema = @Schema(implementation = PostResDto.class))),
+		@ApiResponse(responseCode = "204", description = "204 성공"),
 		@ApiResponse(responseCode = "PT100", description = "404 존재하지 않은 게시판 입니다.",
 			content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResDto.class))),
 	})
-	@PatchMapping("/{id}")
-	public ResponseEntity<PostResDto> deletePost(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deletePost(@AuthenticationPrincipal CustomUserDetails customUserDetails,
 		@PathVariable @Valid Long id) {
 		postService.postDelete(customUserDetails, id);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -94,13 +102,16 @@ public class PostController {
 	)
 	@ApiResponses({
 		@ApiResponse(responseCode = "200", description = "200 성공",
-			content = @Content(mediaType = "application/json", schema = @Schema(implementation = PostResDto.class))),
+			content = @Content(
+				mediaType = "application/json",
+				schema = @Schema(implementation = PostInfoResDto.class)
+			)),
 		@ApiResponse(responseCode = "PT100", description = "404 존재하지 않은 게시판 입니다.",
 			content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResDto.class))),
 	})
 	@GetMapping("/{id}")
-	public ResponseEntity<PostResDto> getPost(@PathVariable @Valid Long id) {
-		PostResDto postResDto = postService.postGet(id);
-		return ResponseEntity.status(HttpStatus.OK).body(postResDto);
+	public ResponseEntity<PostInfoResDto> getPost(@PathVariable @Valid Long id) {
+		PostInfoResDto postInfoResDto = postService.postGet(id);
+		return ResponseEntity.status(HttpStatus.OK).body(postInfoResDto);
 	}
 }

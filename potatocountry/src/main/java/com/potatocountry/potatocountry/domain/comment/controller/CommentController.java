@@ -38,8 +38,10 @@ public class CommentController {
 	)
 	@ApiResponses({
 		@ApiResponse(responseCode = "201", description = "201 성공",
-			content = @Content(mediaType = "application/json",
-				schema = @Schema(implementation = CommentCreateResDto.class))),
+			content = @Content(
+				mediaType = "application/json",
+				schema = @Schema(implementation = CommentCreateResDto.class)
+			)),
 		@ApiResponse(responseCode = "PT100", description = "404 존재하지 않은 게시판 입니다.",
 			content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResDto.class))),
 		@ApiResponse(responseCode = "CM100", description = "404 부모 댓글이 존재하지 않습니다.",

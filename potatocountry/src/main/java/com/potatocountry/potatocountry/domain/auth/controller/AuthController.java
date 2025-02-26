@@ -28,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class AuthController {
+
 	private final AuthService userService;
 
 	@Operation(
@@ -53,7 +54,8 @@ public class AuthController {
 	@GetMapping("/test")
 	public String test(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
 		System.out.println("customUserDetails.getUsername() = " + customUserDetails.getUsername());
-		System.out.println("customUserDetails.getAuthorities() = " + customUserDetails.getAuthorities());
+		System.out.println(
+			"customUserDetails.getAuthorities() = " + customUserDetails.getAuthorities());
 		System.out.println("customUserDetails.getPassword() = " + customUserDetails.getPassword());
 		return "test";
 	}

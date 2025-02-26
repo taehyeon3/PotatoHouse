@@ -10,11 +10,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Schema(description = "게시판 응답 DTO")
+@Schema(description = "게시판 수정 응답 DTO")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PostResDto {
-
+public class PostUpdateResDto {
 	private Long id;
 
 	private PostCategory category;
@@ -34,7 +33,7 @@ public class PostResDto {
 	private PostStatus status;
 
 	@Builder
-	public PostResDto(Long id, PostCategory category, String title, String content, String userNickname,
+	private PostUpdateResDto(Long id, PostCategory category, String title, String content, String userNickname,
 		Long imageCollectionId, Long viewCount, Long likeCount, PostStatus status) {
 		this.id = id;
 		this.category = category;
@@ -47,8 +46,8 @@ public class PostResDto {
 		this.status = status;
 	}
 
-	public static PostResDto toDto(Post post) {
-		return PostResDto.builder()
+	public static PostUpdateResDto toDto(Post post) {
+		return builder()
 			.id(post.getId())
 			.category(post.getCategory())
 			.title(post.getTitle())

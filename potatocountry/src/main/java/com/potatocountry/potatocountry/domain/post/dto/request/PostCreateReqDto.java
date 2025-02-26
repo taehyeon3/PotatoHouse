@@ -12,11 +12,10 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Schema(description = "게시판 생성 DTO")
+@Schema(description = "게시판 생성 요청 DTO")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PostReqDto {
-
+public class PostCreateReqDto {
 	private PostCategory category;
 
 	private List<Long> imageIds;
@@ -25,12 +24,11 @@ public class PostReqDto {
 
 	private String content;
 
-
-	public Post toEntity(User user, PostReqDto postReqDto, ImageCollection imageCollection) {
+	public static Post toEntity(User user, PostCreateReqDto postCreateReqDto, ImageCollection imageCollection) {
 		return Post.builder()
-			.category(postReqDto.getCategory())
-			.title(postReqDto.getTitle())
-			.content(postReqDto.getContent())
+			.category(postCreateReqDto.getCategory())
+			.title(postCreateReqDto.getTitle())
+			.content(postCreateReqDto.getContent())
 			.user(user)
 			.imageCollection(imageCollection)
 			.build();

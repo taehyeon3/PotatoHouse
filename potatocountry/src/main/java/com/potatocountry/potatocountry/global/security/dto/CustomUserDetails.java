@@ -8,7 +8,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.potatocountry.potatocountry.data.entitiy.AuthUser;
-import com.potatocountry.potatocountry.data.entitiy.User;
 
 import lombok.RequiredArgsConstructor;
 
